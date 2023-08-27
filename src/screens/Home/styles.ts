@@ -1,52 +1,52 @@
-import {StyleSheet, Dimensions} from 'react-native';
-import {colors} from '../../constants/theme';
+import { StyleSheet, Dimensions } from 'react-native'
+import {colors} from '../../constants/theme'
 
-const screenDimensions = Dimensions.get('screen');
+const screenDimensions = Dimensions.get('screen')
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   hero: {
     width: screenDimensions.width,
     height: screenDimensions.height * 0.8,
-    position: 'relative',
+    position: 'relative'
   },
   heroImage: {
     flex: 1,
-    resizeMode: 'cover',
+    resizeMode: 'cover'
   },
   heroGradientContainer: {
     position: 'absolute',
     bottom: 0,
     width: screenDimensions.width,
-    height: 120,
+    height: 120
   },
   heroGradient: {
-    flex: 1,
+    flex: 1
   },
   content: {
     width: screenDimensions.width,
-    marginTop: 16,
+    marginTop: 16
   },
   buttonsToolbar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   buttonsToolbarCenter: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   infoContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 24,
+    marginTop: 24
   },
   infoWrapper: {
-    width: '88%',
-  },
-});
+    width: '88%'
+  }
+})
 
-export default styles;
+export default styles

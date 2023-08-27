@@ -4,7 +4,7 @@ import {
   Image,
   ScrollView,
   SafeAreaView,
-  Alert, PermissionsAndroid
+  Alert
 } from "react-native";
 // import RNFetchBlob from 'rn-fetch-blob';
 import {LinearGradient} from 'react-native-linear-gradient'
@@ -26,7 +26,7 @@ import ExpandedView from '../../components/ExpandedView'
 const Home: React.FC = () => {
   const [isModalVisible, setModalVisible] = useState(false)
 
-  const uri = 'http://github.com/cristianprochnow.png'
+  const uri = 'https://github.com/cristianprochnow.png'
   const iconSizeArrowButton = defaultsIconButton.iconSize * 0.8
 
   function onOpenModal() {

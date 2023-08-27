@@ -7,5 +7,5 @@ export const colors = {
   main700: '#43004b',
   main900: '#240037',
   gradient: ['#78247a', '#43004b'],
-  fadeDarker: ['transparent', '#000'],
-};
+  fadeDarker: ['transparent', '#000']
+}
