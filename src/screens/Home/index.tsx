@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Image,
-  ScrollView
-} from 'react-native';
+import React, {useState} from 'react';
+import {View, Image, ScrollView, SafeAreaView} from 'react-native';
 // import RNFetchBlob from 'rn-fetch-blob';
-import { LinearGradient } from 'react-native-linear-gradient';
+import {LinearGradient} from 'react-native-linear-gradient';
+import {
+  ArrowLeft,
+  ArrowRight,
+  Maximize2,
+  Download
+} from 'react-native-feather';
 import IconButton, {
-  defaultValues as defaultsIconButton
+  defaultValues as defaultsIconButton,
 } from '../../components/IconButton';
-import { colors } from '../../constants/theme';
+import {colors} from '../../constants/theme';
 import styles from './styles';
 import InfoCard from '../../components/InfoCard';
 import ExpandedView from '../../components/ExpandedView';
@@ -18,7 +20,7 @@ const Home: React.FC = () => {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const uri = 'http://github.com/cristianprochnow.png';
-  const iconSizeArrowButton = defaultsIconButton.iconSize * 0.64;
+  const iconSizeArrowButton = defaultsIconButton.iconSize * 0.8;
 
   function onOpenModal() {
     setModalVisible(true);
@@ -32,47 +34,55 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <ExpandedView
-        isVisible={isModalVisible}
-        onClose={onCloseModal} />
+      <ExpandedView isVisible={isModalVisible} onClose={onCloseModal} />
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.hero}>
-          <Image style={styles.heroImage} source={{ uri }} />
+          <Image style={styles.heroImage} source={{uri}} />
           <View style={styles.heroGradientContainer}>
-            <LinearGradient style={styles.heroGradient} colors={colors.fadeDarker}></LinearGradient>
+            <LinearGradient
+              style={styles.heroGradient}
+              colors={colors.fadeDarker}
+            />
           </View>
         </View>
-        <View style={{ paddingBottom: 16, ...styles.content }}>
+        <SafeAreaView style={{paddingBottom: 16, ...styles.content}}>
           <View style={styles.buttonsToolbar}>
             <View>
-              <IconButton label="Anterior" iconName="arrow-left" iconColor={colors.main100} iconSize={iconSizeArrowButton} />
+              <IconButton
+                Icon={ArrowLeft}
+                iconColor={colors.main100}
+                iconSize={iconSizeArrowButton}
+              />
             </View>
             <View style={styles.buttonsToolbarCenter}>
               <IconButton
-                label="Visualizar"
+                Icon={Maximize2}
                 onPress={onOpenModal}
-                iconName="maximize"
-                iconColor={colors.main100} />
+                iconColor={colors.main100}
+              />
               <IconButton
-                label="Baixar"
+                Icon={Download}
                 onPress={onSaveToGallery}
-                iconName="download"
                 iconColor={colors.main100}
               />
             </View>
             <View>
-              <IconButton label="Próximo" iconName="arrow-right" iconColor={colors.main100} iconSize={iconSizeArrowButton} />
+              <IconButton
+                Icon={ArrowRight}
+                iconColor={colors.main100}
+                iconSize={iconSizeArrowButton}
+              />
             </View>
           </View>
           <View style={styles.infoContainer}>
             <View style={styles.infoWrapper}>
-              <InfoCard  />
+              <InfoCard />
             </View>
           </View>
-        </View>
+        </SafeAreaView>
       </ScrollView>
     </>
   );
-}
+};
 
 export default Home;

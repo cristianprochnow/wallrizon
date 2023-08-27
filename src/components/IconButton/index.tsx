@@ -1,30 +1,29 @@
 import React from 'react';
-import {Text, TouchableOpacity, TouchableOpacityProps} from 'react-native';
+import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
+import {Feather} from 'react-native-feather';
 import styles from './styles';
 
 interface IconButtonProps extends TouchableOpacityProps {
-  // iconName: keyof typeof Feather.glyphMap,
-  label: string,
-  iconName: string,
-  iconSize?: number,
-  iconColor: string
+  iconSize?: number;
+  iconColor: string;
+  Icon: typeof Feather;
 }
 
 export const defaultValues = {
-  iconSize: 40
+  iconSize: 40,
+  iconColor: 'currentColor',
 };
 
 function IconButton({
-  label,
-  iconName,
   iconSize = defaultValues.iconSize,
-  iconColor,
-  onPress
+  iconColor = defaultValues.iconColor,
+  Icon,
+  onPress,
 }: IconButtonProps): JSX.Element {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       {/*<Feather name={iconName} size={iconSize} color={iconColor} />*/}
-      <Text>{label}</Text>
+      <Icon width={iconSize} height={iconSize} stroke={iconColor} />
     </TouchableOpacity>
   );
 }

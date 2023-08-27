@@ -1,20 +1,18 @@
-import React from 'react';
-import {
-  Modal,
-  Text,
-  View
-} from 'react-native';
-import ImageViewer from 'react-native-image-zoom-viewer';
-import IconButton from '../IconButton';
-import styles, { extraStyles } from './styles';
+import React from 'react'
+import { Modal, SafeAreaView, Text, View } from "react-native";
+import { X } from 'react-native-feather'
+import ImageViewer from 'react-native-image-zoom-viewer'
+import IconButton from '../IconButton'
+import styles, {extraStyles} from './styles'
 
 type ExpandedViewProps = {
-  isVisible: boolean,
+  isVisible: boolean
   onClose: () => void
-};
+}
 
-function ExpandedView({ isVisible, onClose }: ExpandedViewProps): JSX.Element {
-  const uri = 'https://c4.wallpaperflare.com/wallpaper/535/845/69/digital-art-artwork-fantasy-art-planet-sun-hd-wallpaper-preview.jpg';
+const ExpandedView: React.FC = ({isVisible, onClose}: ExpandedViewProps) => {
+  const uri =
+    'https://c4.wallpaperflare.com/wallpaper/535/845/69/digital-art-artwork-fantasy-art-planet-sun-hd-wallpaper-preview.jpg';
 
   return (
     <Modal
@@ -22,30 +20,32 @@ function ExpandedView({ isVisible, onClose }: ExpandedViewProps): JSX.Element {
       transparent={false}
       statusBarTranslucent={true}
       visible={isVisible}>
-        <View style={{
-          paddingTop: 10,
+      <SafeAreaView
+        style={{
+          paddingTop: 16,
           ...styles.modalBody
         }}>
-          <View style={styles.modalHeader}>
-            <Text style={styles.modalHeaderTitle}>Titulo da Imagem</Text>
-            <IconButton
-              label="Fechar"
-              iconName="x"
-              iconColor={extraStyles.iconColor}
-              onPress={onClose} />
-          </View>
-
-          <View style={styles.modalContent}>
-            <ImageViewer
-              style={styles.modalImage}
-              imageUrls={[{ url: uri }]}
-              useNativeDriver={true}
-              enableSwipeDown={false}
-              saveToLocalByLongPress={false} />
-          </View>
+        <View style={styles.modalHeader}>
+          <Text style={styles.modalHeaderTitle}>Titulo da Imagem</Text>
+          <IconButton
+            Icon={X}
+            iconColor={extraStyles.iconColor}
+            onPress={onClose}
+          />
         </View>
+
+        <View style={styles.modalContent}>
+          <ImageViewer
+            style={styles.modalImage}
+            imageUrls={[{url: uri}]}
+            useNativeDriver={true}
+            enableSwipeDown={false}
+            saveToLocalByLongPress={false}
+          />
+        </View>
+      </SafeAreaView>
     </Modal>
-  );
+  )
 }
 
-export default ExpandedView;
+export default ExpandedView

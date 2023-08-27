@@ -6,13 +6,9 @@
  */
 
 import React from 'react';
-import {
-  StatusBar,
-  StyleSheet,
-  View
-} from 'react-native';
-import Home from "./src/screens/Home";
-import { colors } from "./src/constants/theme";
+import {StatusBar, StyleSheet, View} from 'react-native';
+import Home from './src/screens/Home';
+import {colors} from './src/constants/theme';
 
 const App: React.FC = () => (
   <>
@@ -26,13 +22,13 @@ const App: React.FC = () => (
       <Home />
     </View>
   </>
-)
+);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.backgroundDarker
-  }
+    backgroundColor: colors.backgroundDarker,
+  },
 });
 
 export default App;
