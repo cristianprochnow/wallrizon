@@ -10,7 +10,9 @@ type ExpandedViewProps = {
   onClose: () => void
 }
 
-const ExpandedView: React.FC = ({isVisible, onClose}: ExpandedViewProps) => {
+const ExpandedView: React.FC<ExpandedViewProps> = ({
+   isVisible, onClose
+}: ExpandedViewProps) => {
   const uri =
     'https://c4.wallpaperflare.com/wallpaper/535/845/69/digital-art-artwork-fantasy-art-planet-sun-hd-wallpaper-preview.jpg';
 
