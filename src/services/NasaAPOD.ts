@@ -32,9 +32,9 @@ class NasaAPOD {
 
   constructor() {
     this.baseURL = `https://api.nasa.gov/planetary/apod`
-    this.queryParams = '';
-    this.url = '';
-    this.Dates = new Dates();
+    this.queryParams = ''
+    this.url = ''
+    this.Dates = new Dates()
   }
 
   buildHTTPQueryParams(extraParams: InterfaceExtraParamsForURL) {
@@ -68,7 +68,7 @@ class NasaAPOD {
   async fetchByDay(date: Date) {
     const formatDate = this.Dates.formatDate(date)
 
-    const response = await this.fetch({ date: formatDate });
+    const response = await this.fetch({ date: formatDate })
 
     console.log(response)
   }
