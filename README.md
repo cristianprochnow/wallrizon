@@ -11,7 +11,7 @@ API_KEY=<your-secret-key>
 
 Then, install packages to run project.
 ```
-$ npm install
+npm install
 ```
 
 And finally run project 🚀
