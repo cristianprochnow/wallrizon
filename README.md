@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-Fill your `.env` (create this file in project's root directory) file with your [**Nasa API Key**](nasa-api-url) in `API_KEY` property, like below.
+Fill your `.env` (create this file in project's root directory) file with your [**Nasa API Key**][nasa-api-url] in `API_KEY` property, like below.
 ```env
 # .env
 
