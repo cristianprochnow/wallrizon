@@ -4,7 +4,8 @@ import {
   Image,
   ScrollView,
   SafeAreaView,
-  Alert
+  Alert,
+  ActivityIndicator
 } from 'react-native'
 import Dates from '../../helpers/Dates'
 import { LinearGradient } from 'react-native-linear-gradient'
@@ -18,7 +19,7 @@ import {
 import IconButton, {
   defaultValues as defaultsIconButton,
 } from '../../components/IconButton'
-import {colors} from '../../constants/theme'
+import { colors } from '../../constants/theme'
 import styles from './styles'
 import InfoCard from '../../components/InfoCard'
 import ExpandedView from '../../components/ExpandedView'
@@ -32,6 +33,7 @@ const Home: React.FC = () => {
   const [imageDate, setImageDate] = useState('');
   const [imageDescription, setImageDescription] = useState('');
   const [imageTitle, setImageTitle] = useState('');
+  const [isLoading, setLoading] = useState(true);
 
   const dates = new Dates();
   const nasaApod = new NasaAPOD();
@@ -43,15 +45,31 @@ const Home: React.FC = () => {
   }, [viewDate])
 
   async function fetchView() {
+    setLoading(true)
     const viewData = await nasaApod.fetchByDay(viewDate)
 
-    if (viewData) {
-      setImageUrl(viewData.url);
-      setHdImageUrl(viewData.hdurl);
-      setImageDate(dates.formatDate(new Date(viewData.date), 'D/M/Y'));
-      setImageDescription(viewData.explanation);
-      setImageTitle(viewData.title);
+    if (viewData.error) {
+      return Alert.alert(
+        'Erro ao carregar os dados',
+        `Ocorreu um erro e não foi possível carregar os dados desejados.\n\n\nDetalhes do erro: [(${viewData.error.code}) ${viewData.error.message}].`,
+        [
+          {
+            text: 'Tentar novamente',
+            onPress: fetchView
+          },
+          { text: 'Entendi' }
+        ]
+      );
     }
+
+    if (viewData) {
+      setImageUrl(viewData.url)
+      setHdImageUrl(viewData.hdurl)
+      setImageDate(dates.formatDate(new Date(viewData.date), 'D/M/Y'))
+      setImageDescription(viewData.explanation)
+      setImageTitle(viewData.title)
+    }
+    setLoading(false)
   }
 
   function onOpenModal() {
@@ -136,7 +154,22 @@ const Home: React.FC = () => {
       />
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.hero}>
-          <Image style={styles.heroImage} source={{ uri: imageUrl }} />
+          {
+            (isLoading) ? (
+              <View style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                ...styles.heroImage
+              }}>
+                <ActivityIndicator
+                  size="large"
+                  color={colors.main500}
+                />
+              </View>
+            ) : (
+              <Image style={styles.heroImage} source={{ uri: imageUrl }} />
+            )
+          }
           <View style={styles.heroGradientContainer}>
             <LinearGradient
               style={styles.heroGradient}

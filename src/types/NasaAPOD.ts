@@ -15,4 +15,8 @@ export interface InterfaceResponseAPI extends Response {
   service_version: string
   title: string
   url: string
+  error: {
+    code: string
+    message: string
+  }
 }
