@@ -7,11 +7,14 @@ import styles, {extraStyles} from './styles'
 
 type ExpandedViewProps = {
   isVisible: boolean
+  imageHdUrl: string
+  imageUrl: string
+  imageTitle: string
   onClose: () => void
 }
 
 const ExpandedView: React.FC<ExpandedViewProps> = ({
-   isVisible, onClose
+   isVisible, onClose, imageUrl, imageHdUrl, imageTitle
 }: ExpandedViewProps) => {
   const uri =
     'https://c4.wallpaperflare.com/wallpaper/535/845/69/digital-art-artwork-fantasy-art-planet-sun-hd-wallpaper-preview.jpg';
@@ -28,7 +31,7 @@ const ExpandedView: React.FC<ExpandedViewProps> = ({
           ...styles.modalBody
         }}>
         <View style={styles.modalHeader}>
-          <Text style={styles.modalHeaderTitle}>Titulo da Imagem</Text>
+          <Text style={styles.modalHeaderTitle}>{imageTitle}</Text>
           <IconButton
             Icon={X}
             iconColor={extraStyles.iconColor}
@@ -39,7 +42,7 @@ const ExpandedView: React.FC<ExpandedViewProps> = ({
         <View style={styles.modalContent}>
           <ImageViewer
             style={styles.modalImage}
-            imageUrls={[{url: uri}]}
+            imageUrls={[{url: imageHdUrl ?? imageUrl}]}
             useNativeDriver={true}
             enableSwipeDown={false}
             saveToLocalByLongPress={false}

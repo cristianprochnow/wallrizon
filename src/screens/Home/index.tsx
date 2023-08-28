@@ -1,13 +1,13 @@
-import React, {useState} from 'react'
+import React, { useEffect, useState } from "react";
 import {
   View,
   Image,
   ScrollView,
   SafeAreaView,
   Alert
-} from "react-native";
-// import RNFetchBlob from 'rn-fetch-blob';
-import {LinearGradient} from 'react-native-linear-gradient'
+} from 'react-native'
+import Dates from '../../helpers/Dates'
+import { LinearGradient } from 'react-native-linear-gradient'
 import RNFetchBlob from 'rn-fetch-blob'
 import {
   ArrowLeft,
@@ -22,12 +22,37 @@ import {colors} from '../../constants/theme'
 import styles from './styles'
 import InfoCard from '../../components/InfoCard'
 import ExpandedView from '../../components/ExpandedView'
+import NasaAPOD from '../../services/NasaAPOD'
 
 const Home: React.FC = () => {
+  const [viewDate, setViewDate] = useState(new Date());
   const [isModalVisible, setModalVisible] = useState(false)
+  const [imageUrl, setImageUrl] = useState('');
+  const [hdImageUrl, setHdImageUrl] = useState('');
+  const [imageDate, setImageDate] = useState('');
+  const [imageDescription, setImageDescription] = useState('');
+  const [imageTitle, setImageTitle] = useState('');
 
-  const uri = 'https://github.com/cristianprochnow.png'
+  const dates = new Dates();
+  const nasaApod = new NasaAPOD();
+
   const iconSizeArrowButton = defaultsIconButton.iconSize * 0.8
+
+  useEffect(() => {
+    fetchView();
+  }, [viewDate])
+
+  async function fetchView() {
+    const viewData = await nasaApod.fetchByDay(viewDate)
+
+    if (viewData) {
+      setImageUrl(viewData.url);
+      setHdImageUrl(viewData.hdurl);
+      setImageDate(dates.formatDate(new Date(viewData.date), 'D/M/Y'));
+      setImageDescription(viewData.explanation);
+      setImageTitle(viewData.title);
+    }
+  }
 
   function onOpenModal() {
     setModalVisible(true)
@@ -68,7 +93,7 @@ const Home: React.FC = () => {
         path: picturePath,
         description: 'Imagem do Dia da NASA'
       }
-    }).fetch('GET', uri).then(response => {
+    }).fetch('GET', hdImageUrl ?? imageUrl).then(response => {
       let filePath = ''
 
       if (response && response.data) {
@@ -92,12 +117,26 @@ const Home: React.FC = () => {
     })
   }
 
+  function onPreviousDay() {
+    setViewDate(dates.decrementDate(viewDate));
+  }
+
+  function onNextDay() {
+    setViewDate(dates.incrementDate(viewDate));
+  }
+
   return (
     <>
-      <ExpandedView isVisible={isModalVisible} onClose={onCloseModal} />
+      <ExpandedView
+        isVisible={isModalVisible}
+        onClose={onCloseModal}
+        imageUrl={imageUrl}
+        imageHdUrl={hdImageUrl}
+        imageTitle={imageTitle}
+      />
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.hero}>
-          <Image style={styles.heroImage} source={{uri}} />
+          <Image style={styles.heroImage} source={{ uri: imageUrl }} />
           <View style={styles.heroGradientContainer}>
             <LinearGradient
               style={styles.heroGradient}
@@ -112,6 +151,7 @@ const Home: React.FC = () => {
                 Icon={ArrowLeft}
                 iconColor={colors.main100}
                 iconSize={iconSizeArrowButton}
+                onPress={onPreviousDay}
               />
             </View>
             <View style={styles.buttonsToolbarCenter}>
@@ -131,12 +171,17 @@ const Home: React.FC = () => {
                 Icon={ArrowRight}
                 iconColor={colors.main100}
                 iconSize={iconSizeArrowButton}
+                onPress={onNextDay}
               />
             </View>
           </View>
           <View style={styles.infoContainer}>
             <View style={styles.infoWrapper}>
-              <InfoCard />
+              <InfoCard
+                imageDescription={imageDescription}
+                imageTitle={imageTitle}
+                imageDate={imageDate}
+              />
             </View>
           </View>
         </SafeAreaView>

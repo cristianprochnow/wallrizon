@@ -2,27 +2,10 @@
  * https://api.nasa.gov/
  */
 
+// @ts-ignore
 import { API_KEY } from '@env'
 import Dates from '../helpers/Dates'
-
-interface InterfaceExtraParamsForURL {
-  date?: string
-  start_date?: string
-  end_date?: string
-  count?: number
-  thumbs?: boolean
-}
-
-interface InterfaceResponseAPI {
-  copyright: string
-  date: string
-  explanation: string
-  hdurl: string
-  media_type: string
-  service_version: string
-  title: string
-  url: string
-}
+import { InterfaceResponseAPI, InterfaceExtraParamsForURL } from '../types/NasaAPOD'
 
 class NasaAPOD {
   baseURL: string
@@ -58,19 +41,20 @@ class NasaAPOD {
     this.url = `${this.baseURL}?${this.queryParams}`
   }
 
-  async fetch(extraParams: InterfaceExtraParamsForURL): Promise<Response> {
+  async fetch(extraParams: InterfaceExtraParamsForURL): Promise<InterfaceResponseAPI> {
     this.buildHTTPQueryParams(extraParams)
     this.buildURL()
 
-    return fetch(this.url)
+    const response = await fetch(this.url)
+    const responseDecoded = await response.json()
+
+    return responseDecoded
   }
 
-  async fetchByDay(date: Date) {
+  async fetchByDay(date: Date): Promise<InterfaceResponseAPI> {
     const formatDate = this.Dates.formatDate(date)
 
-    const response = await this.fetch({ date: formatDate })
-
-    console.log(response)
+    return await this.fetch({ date: formatDate })
   }
 }
 
