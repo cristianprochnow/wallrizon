@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import {Dimensions, StyleSheet} from 'react-native'
 import { colors } from '../../constants/theme'
 
 const styles = StyleSheet.create({
@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
     color: colors.main100,
     fontFamily: 'Dosis_700',
     fontSize: 24,
-    lineHeight: 32
+    lineHeight: 32,
+    width: Dimensions.get('screen').width * 0.72
   },
   modalContent: {
     flex: 1,

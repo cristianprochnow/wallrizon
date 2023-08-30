@@ -31,7 +31,7 @@ const ExpandedView: React.FC<ExpandedViewProps> = ({
           ...styles.modalBody
         }}>
         <View style={styles.modalHeader}>
-          <Text style={styles.modalHeaderTitle}>{imageTitle}</Text>
+          <Text numberOfLines={1} style={styles.modalHeaderTitle}>{imageTitle}</Text>
           <IconButton
             Icon={X}
             iconColor={extraStyles.iconColor}
