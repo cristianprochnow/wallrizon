@@ -45,6 +45,8 @@ class NasaAPOD {
     this.buildHTTPQueryParams(extraParams)
     this.buildURL()
 
+    console.log(this.url)
+
     const response = await fetch(this.url)
     const responseDecoded = await response.json()
 

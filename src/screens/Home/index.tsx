@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 import {
   View,
   Image,
@@ -16,6 +16,7 @@ import {
   Maximize2,
   Download
 } from 'react-native-feather'
+
 import IconButton, {
   defaultValues as defaultsIconButton,
 } from '../../components/IconButton'
@@ -24,6 +25,7 @@ import styles from './styles'
 import InfoCard from '../../components/InfoCard'
 import ExpandedView from '../../components/ExpandedView'
 import NasaAPOD from '../../services/NasaAPOD'
+import Loading from '../../components/Loading'
 
 const Home: React.FC = () => {
   const [viewDate, setViewDate] = useState(new Date());
@@ -34,6 +36,7 @@ const Home: React.FC = () => {
   const [imageDescription, setImageDescription] = useState('');
   const [imageTitle, setImageTitle] = useState('');
   const [isLoading, setLoading] = useState(true);
+  const [loadingTest, setLoadingTest] = useState(true);
 
   const dates = new Dates();
   const nasaApod = new NasaAPOD();
@@ -152,6 +155,7 @@ const Home: React.FC = () => {
         imageHdUrl={hdImageUrl}
         imageTitle={imageTitle}
       />
+      <Loading isVisible={loadingTest} />
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.hero}>
           {
