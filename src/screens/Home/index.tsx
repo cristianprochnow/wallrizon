@@ -36,7 +36,6 @@ const Home: React.FC = () => {
   const [imageDescription, setImageDescription] = useState('');
   const [imageTitle, setImageTitle] = useState('');
   const [isLoading, setLoading] = useState(true);
-  const [loadingTest, setLoadingTest] = useState(true);
 
   const dates = new Dates();
   const nasaApod = new NasaAPOD();
@@ -98,6 +97,8 @@ const Home: React.FC = () => {
   }
 
   function saveToGallety() {
+    setLoading(true)
+
     const imageName = (new Date()).getTime()
     const blobDirs = RNFetchBlob.fs.dirs
     const picturePath = blobDirs.PictureDir + '/' + imageName + '.png'
@@ -115,6 +116,8 @@ const Home: React.FC = () => {
         description: 'Imagem do Dia da NASA'
       }
     }).fetch('GET', hdImageUrl ?? imageUrl).then(response => {
+      setLoading(false)
+
       let filePath = ''
 
       if (response && response.data) {
@@ -155,24 +158,13 @@ const Home: React.FC = () => {
         imageHdUrl={hdImageUrl}
         imageTitle={imageTitle}
       />
-      <Loading isVisible={loadingTest} />
+      <Loading isVisible={isLoading} />
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.hero}>
           {
-            (isLoading) ? (
-              <View style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                ...styles.heroImage
-              }}>
-                <ActivityIndicator
-                  size="large"
-                  color={colors.main500}
-                />
-              </View>
-            ) : (
-              <Image style={styles.heroImage} source={{ uri: imageUrl }} />
-            )
+            (isLoading)
+              ? <View />
+              : <Image style={styles.heroImage} source={{ uri: imageUrl }} />
           }
           <View style={styles.heroGradientContainer}>
             <LinearGradient

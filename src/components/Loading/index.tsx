@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, SafeAreaView, View } from 'react-native'
+import { Modal, SafeAreaView, Text, View } from 'react-native'
 import LottieView from 'lottie-react-native'
 
 import styles from './styles'
@@ -26,6 +26,7 @@ const Loading: React.FC<LoadingProps> = ({
           source={require(animationURL)}
           autoPlay
           loop
+          speed={7.2}
         />
       </SafeAreaView>
     </Modal>
