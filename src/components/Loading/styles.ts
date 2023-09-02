@@ -3,9 +3,7 @@ import { colors } from '../../constants/theme'
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: colors.backgroundDarker,
-    opacity: 0.64
+    flex: 1
   },
   animation: {
     width: 320,

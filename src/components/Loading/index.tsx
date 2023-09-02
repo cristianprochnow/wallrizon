@@ -11,7 +11,7 @@ type LoadingProps = {
 const Loading: React.FC<LoadingProps> = ({
   isVisible
 }: LoadingProps) => {
-  const rocketAnimationURL = '../../../assets/animations/rocket.json'
+  const animationURL = '../../../assets/animations/astronaut.json'
 
   return (
     <Modal
@@ -23,7 +23,7 @@ const Loading: React.FC<LoadingProps> = ({
       <SafeAreaView style={styles.container}>
         <LottieView
           style={styles.animation}
-          source={require(rocketAnimationURL)}
+          source={require(animationURL)}
           autoPlay
           loop
         />
