@@ -4,6 +4,7 @@ import { X } from 'react-native-feather'
 import ImageViewer from 'react-native-image-zoom-viewer'
 import IconButton from '../IconButton'
 import styles, {extraStyles} from './styles'
+import Loading from '../Loading';
 
 type ExpandedViewProps = {
   isVisible: boolean
@@ -16,9 +17,6 @@ type ExpandedViewProps = {
 const ExpandedView: React.FC<ExpandedViewProps> = ({
    isVisible, onClose, imageUrl, imageHdUrl, imageTitle
 }: ExpandedViewProps) => {
-  const uri =
-    'https://c4.wallpaperflare.com/wallpaper/535/845/69/digital-art-artwork-fantasy-art-planet-sun-hd-wallpaper-preview.jpg';
-
   return (
     <Modal
       animationType="fade"
@@ -41,6 +39,7 @@ const ExpandedView: React.FC<ExpandedViewProps> = ({
 
         <View style={styles.modalContent}>
           <ImageViewer
+            loadingRender={() => <Loading isVisible={true} />}
             style={styles.modalImage}
             imageUrls={[{url: imageHdUrl ?? imageUrl}]}
             useNativeDriver={true}
