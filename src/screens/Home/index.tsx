@@ -4,8 +4,7 @@ import {
   Image,
   ScrollView,
   SafeAreaView,
-  Alert,
-  ActivityIndicator
+  Alert
 } from 'react-native'
 import Dates from '../../helpers/Dates'
 import { LinearGradient } from 'react-native-linear-gradient'
